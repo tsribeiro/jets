@@ -16,6 +16,7 @@ class Jets::Application
     setup_autoload_paths
     setup_ignore_paths
     main_loader_setup
+    puts "setup @config.object_id #{@config.object_id}"
   end
 
   def configs!
@@ -23,6 +24,7 @@ class Jets::Application
     load_db_config
     set_iam_policy # relies on dependent values, must be called afterwards
     normalize_env_vars!
+    puts "configs! @config.object_id #{@config.object_id}"
   end
 
   # After the mimimal template gets build, we need to reload it for the full stack

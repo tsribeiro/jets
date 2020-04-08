@@ -1,6 +1,8 @@
 module Jets
   # Reference: https://github.com/rails/rails/blob/master/actionmailer/lib/action_mailer/railtie.rb
   class Mailer < ::Jets::Turbine
+    puts "Jets::Mailer Turbine loaded"
+
     config.action_mailer = ActiveSupport::OrderedOptions.new
 
     initializer "action_mailer.logger" do
@@ -9,6 +11,8 @@ module Jets
 
     initializer "action_mailer.set_configs" do |app|
       app.config.action_mailer ||= ActiveSupport::OrderedOptions.new # TODO: temp fix. only happens sometimes?
+      puts "initializer config.object_id #{config.object_id}"
+
       options = app.config.action_mailer
       options.default_url_options ||= {}
       options.default_url_options[:protocol] ||= "https"
@@ -32,6 +36,8 @@ module Jets
         register_observers(options.delete(:observers))
 
         options.each { |k, v| send("#{k}=", v) }
+
+        puts "on_load config.object_id #{config.object_id}"
       end
     end
 
