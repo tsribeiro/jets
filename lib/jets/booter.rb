@@ -88,6 +88,7 @@ class Jets::Booter
       end
       ActiveRecord::Base.configurations = db_configs
       connect_db
+      connect_db_replica
     end
 
     # Eager connect to database, so connections are established in the Lambda Execution Context and get reused.
@@ -100,6 +101,14 @@ class Jets::Booter
       }
       primary_config = primary_hash_config.config # config is a normal Ruby Hash
       ActiveRecord::Base.establish_connection(primary_config)
+    end
+
+    def connect_db_replica
+      primary_hash_config = ActiveRecord::Base.configurations.configs_for(env_name: Jets.env).find { |hash_config|
+        hash_config.spec_name == "primary_replica"
+      }
+      primary_config = primary_hash_config.config unless primary_hash_config.nil?
+      ActiveRecord::Base.establish_connection(primary_config) unless primary_hash_config.nil?
     end
 
     def load_internal_turbines
