@@ -112,7 +112,7 @@ class Jets::Booter
       }
 
       pp "TESTE2"
-      primary_hash_config
+      pp primary_hash_config
       primary_config = primary_hash_config.config unless primary_hash_config.nil?
       ActiveRecord::Base.establish_connection(primary_config) unless primary_hash_config.nil?
     end
