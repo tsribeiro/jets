@@ -77,11 +77,6 @@ class Jets::Booter
     def setup_db
       return unless File.exist?("#{Jets.root}/config/database.yml")
 
-      pp "TESTE"
-      pp Jets.application.config.database.select{ |config|
-        config.env_name == Jets.env
-      }
-
       db_configs = Jets.application.config.database
       # DatabaseTasks.database_configuration for db:create db:migrate tasks
       # Documented in DatabaseTasks that this is the right way to set it when
@@ -109,7 +104,7 @@ class Jets::Booter
     end
 
     def connect_db_replica
-      primary_hash_config = ActiveRecord::Base.configurations.configs_for(env_name: Jets.env).find { |hash_config|
+      primary_hash_config = ActiveRecord::Base.configurations.configs_for(env_name: Jets.env, include_replicas: true).find { |hash_config|
         hash_config.spec_name == "primary_replica"
       }
       primary_config = primary_hash_config.config unless primary_hash_config.nil?
