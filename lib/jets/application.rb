@@ -198,6 +198,8 @@ class Jets::Application
     if File.exist?(database_yml)
       require "active_record/database_configurations" # lazy require
       text = Jets::Erb.result(database_yml)
+      pp "TESTE"
+      pp text
       db_configs = YAML.load(text)
       configurations = ActiveRecord::DatabaseConfigurations.new(db_configs)
       config.database = configurations
