@@ -104,17 +104,16 @@ class Jets::Booter
     end
 
     def connect_db_replica
-      pp "TESTE"
       pp ActiveRecord::Base.configurations.configs_for(env_name: Jets.env, include_replicas: true)
 
       primary_hash_config = ActiveRecord::Base.configurations.configs_for(env_name: Jets.env, include_replicas: true).find { |hash_config|
         hash_config.spec_name == "primary_replica"
       }
 
-      pp "TESTE2"
-      pp primary_hash_config
       primary_config = primary_hash_config.config unless primary_hash_config.nil?
-      ActiveRecord::Base.establish_connection(primary_config) unless primary_hash_config.nil?
+      
+      pp "TESTE"
+      pp ActiveRecord::Base.establish_connection(primary_config) unless primary_hash_config.nil?
     end
 
     def load_internal_turbines
