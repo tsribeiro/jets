@@ -77,6 +77,9 @@ class Jets::Booter
     def setup_db
       return unless File.exist?("#{Jets.root}/config/database.yml")
 
+      pp "TESTE"
+      pp Jets.application.config.database
+      
       db_configs = Jets.application.config.database
       # DatabaseTasks.database_configuration for db:create db:migrate tasks
       # Documented in DatabaseTasks that this is the right way to set it when
