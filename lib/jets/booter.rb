@@ -104,8 +104,6 @@ class Jets::Booter
     end
 
     def connect_db_replica
-      pp ActiveRecord::Base.configurations.configs_for(env_name: Jets.env, include_replicas: true)
-
       primary_hash_config = ActiveRecord::Base.configurations.configs_for(env_name: Jets.env, include_replicas: true).find { |hash_config|
         hash_config.spec_name == "primary_replica"
       }
