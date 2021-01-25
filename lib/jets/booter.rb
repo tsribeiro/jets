@@ -111,7 +111,9 @@ class Jets::Booter
       primary_config = primary_hash_config.config unless primary_hash_config.nil?
       
       pp "TESTE"
-      pp ActiveRecord::Base.establish_connection(primary_config) unless primary_hash_config.nil?
+      pp primary_config
+      
+      pp ActiveRecord::Base.establish_connection(primary_config) unless primary_config.nil?
     end
 
     def load_internal_turbines
