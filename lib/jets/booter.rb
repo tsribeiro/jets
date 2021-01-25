@@ -78,7 +78,7 @@ class Jets::Booter
       return unless File.exist?("#{Jets.root}/config/database.yml")
 
       pp "TESTE"
-      pp Jets.application.config.database
+      pp Jets.application.config.database.configs_for(env_name: Jets.env)
       
       db_configs = Jets.application.config.database
       # DatabaseTasks.database_configuration for db:create db:migrate tasks
