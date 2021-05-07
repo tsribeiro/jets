@@ -133,6 +133,18 @@ module Jets::Lambda::Dsl
         !!(class_iam_policy || class_managed_iam_policy)
       end
 
+      def class_monitoring(value=nil)
+        if value.nil?
+          @class_monitoring
+        else
+          @class_monitoring = value
+        end
+      end
+
+      def build_monitoring?
+        !!(class_monitoring)
+      end
+
       #############################
       # Main method that registers resources associated with the Lambda function.
       # All resources methods lead here.

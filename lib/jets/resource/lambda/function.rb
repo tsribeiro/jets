@@ -77,6 +77,10 @@ module Jets::Resource::Lambda
         class_properties[:role] = "!GetAtt #{iam_policy.logical_id}.Arn"
       end
 
+      if klass.build_monitoring?
+        class_properties[:TracingConfig] = {Mode: "Active"} unless klass.class_monitoring[:xray_tracing].nil?
+      end
+
       class_properties
     end
 
