@@ -1,6 +1,6 @@
 class Jets::Lambda::Task
   attr_accessor :class_name, :type
-  attr_reader :meth, :properties, :iam_policy, :managed_iam_policy, :lang, :associated_resources
+  attr_reader :meth, :properties, :iam_policy, :managed_iam_policy, :lang, :associated_resources, :monitoring
   def initialize(class_name, meth, options={})
     @class_name = class_name.to_s
     @meth = meth
@@ -8,6 +8,7 @@ class Jets::Lambda::Task
     @type = options[:type] || get_type  # controller, job, or function
     @properties = options[:properties] || {}
     @iam_policy = options[:iam_policy]
+    @monitoring = options[:monitoring]
     @managed_iam_policy = options[:managed_iam_policy]
     @lang = options[:lang] || :ruby
     @associated_resources = options[:associated_resources] || {}
@@ -34,6 +35,10 @@ class Jets::Lambda::Task
 
   def build_function_iam?
     !!(@iam_policy || @managed_iam_policy)
+  end
+
+  def build_function_monitoring?
+    !!(@monitoring)
   end
 
   @@lang_exts = {

@@ -141,6 +141,14 @@ module Jets::Lambda::Dsl
         end
       end
 
+      def monitoring(value=nil)
+        if value.nil?
+          @monitoring
+        else
+          @monitoring = value
+        end
+      end
+
       def build_monitoring?
         !!(class_monitoring)
       end
@@ -276,6 +284,7 @@ module Jets::Lambda::Dsl
         all_tasks[meth] = Jets::Lambda::Task.new(self.name, meth,
           properties: @properties, # lambda function properties
           iam_policy: @iam_policy,
+          monitoring: @monitoring,
           managed_iam_policy: @managed_iam_policy,
           associated_resources: @associated_resources,
           lang: lang,

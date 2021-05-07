@@ -120,6 +120,11 @@ module Jets::Resource::Lambda
         iam_policy = Jets::Resource::Iam::FunctionRole.new(@task)
         properties[:role] = "!GetAtt #{iam_policy.logical_id}.Arn"
       end
+
+      if @task.build_function_monitoring?
+        properties[:TracingConfig] = {Mode: "Active"} unless @task.monitoring[:xray_tracing].nil?
+      end
+        
       properties
     end
 
