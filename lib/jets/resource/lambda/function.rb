@@ -78,6 +78,7 @@ module Jets::Resource::Lambda
       end
 
       if klass.build_monitoring?
+        pp "MEUOVO"
         class_properties[:TracingConfig] = {Mode: "Active"} unless klass.class_monitoring[:xray_tracing].nil?
       end
 

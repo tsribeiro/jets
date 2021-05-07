@@ -311,6 +311,7 @@ module Jets::Lambda::Dsl
       def clear_properties
         @properties = nil
         @iam_policy = nil
+        @monitoring = nil
         @managed_iam_policy = nil
         @associated_resources = nil
         @associated_properties = nil
