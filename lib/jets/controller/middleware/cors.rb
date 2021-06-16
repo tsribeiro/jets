@@ -26,10 +26,10 @@ module Jets::Controller::Middleware
     end
 
     def cors_headers(preflight=false)
-      headers = case Jets.config.cors
-
       pp "ENTREI NO cors_headers"
       pp Jets.config.cors
+      
+      headers = case Jets.config.cors
       when true
         {
           "access-control-allow-origin" => "*", # Required for CORS support to work
