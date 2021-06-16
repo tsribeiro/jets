@@ -11,7 +11,10 @@ module Jets::Controller::Middleware
     end
 
     def call(env)
+      pp "ENTREI NO CORS"
+
       if env['REQUEST_METHOD'] == 'OPTIONS'
+        pp "ENTREI NO OPTIONS"
         return [200, cors_headers(true), StringIO.new]
       end
 
@@ -24,6 +27,9 @@ module Jets::Controller::Middleware
 
     def cors_headers(preflight=false)
       headers = case Jets.config.cors
+
+      pp "ENTREI NO cors_headers"
+      pp Jets.config.cors
       when true
         {
           "access-control-allow-origin" => "*", # Required for CORS support to work
