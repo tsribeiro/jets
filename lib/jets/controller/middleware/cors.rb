@@ -11,7 +11,10 @@ module Jets::Controller::Middleware
     end
 
     def call(env)
+      pp "ENTREI NO CORS"
+
       if env['REQUEST_METHOD'] == 'OPTIONS'
+        pp "ENTREI NO OPTIONS"
         return [200, cors_headers(true), StringIO.new]
       end
 
@@ -23,6 +26,9 @@ module Jets::Controller::Middleware
     end
 
     def cors_headers(preflight=false)
+      pp "ENTREI NO cors_headers"
+      pp Jets.config.cors
+      
       headers = case Jets.config.cors
       when true
         {
